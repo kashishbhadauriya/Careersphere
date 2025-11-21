@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - CareerSphere</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(-20px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        .slide-in {
+            animation: slideIn 0.6s ease-out;
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .stat-card {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+        }
+
+        .progress-ring {
+            transform: rotate(-90deg);
+        }
+
+        .progress-ring-circle {
+            transition: stroke-dashoffset 0.5s ease;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .pulse {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-gray-50 to-gray-100 min-h-screen">
+
+    <!-- Navigation Header -->
+    <nav class="gradient-bg text-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <div class="text-3xl">🌐</div>
+                    <div>
+                        <h1 class="text-2xl font-bold">CareerSphere</h1>
+                        <p class="text-xs text-indigo-200">Your AI Career Companion</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="hidden md:block text-right">
+                        <p class="text-sm font-semibold"><%= user.name %></p>
+                        <p class="text-xs text-indigo-200"><%= user.email %></p>
+                    </div>
+                    <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center font-bold text-lg">
+                        <%= user.name.charAt(0).toUpperCase() %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="max-w-7xl mx-auto px-6 py-8">
+
+        <!-- Welcome Section -->
+        <div class="fade-in mb-8">
+            <h2 class="text-4xl font-bold text-gray-800 mb-2">
+                Welcome back, <%= user.name %>! 👋
+            </h2>
+            <p class="text-gray-600 text-lg">Ready to take the next step in your career journey?</p>
+        </div>
+
+    
+
+        <!-- Main Action Card -->
+        <div class="bg-white rounded-2xl shadow-xl overflow-hidden mb-8 slide-in">
+            <div class="md:flex">
+                <div class="md:w-1/2 p-8 lg:p-12">
+                    <div class="inline-block bg-indigo-100 text-indigo-700 px-4 py-1 rounded-full text-sm font-semibold mb-4">
+                        🎯 Get Started
+                    </div>
+                    <h3 class="text-3xl font-bold text-gray-800 mb-4">
+                        Discover Your Perfect Career Path
+                    </h3>
+                    <p class="text-gray-600 mb-6 leading-relaxed">
+                        Take our comprehensive AI-powered assessment to uncover your strengths, interests, and ideal career matches. Get a personalized roadmap tailored just for you.
+                    </p>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-start">
+                            <svg class="w-6 h-6 text-green-500 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            <span class="text-gray-700">30-question comprehensive assessment</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-6 h-6 text-green-500 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            <span class="text-gray-700">AI-powered career matching algorithm</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-6 h-6 text-green-500 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            <span class="text-gray-700">Personalized 12-month learning roadmap</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-6 h-6 text-green-500 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            <span class="text-gray-700">Detailed skill gap analysis</span>
+                        </li>
+                    </ul>
+                    <a href="/assessment">
+                        <button class="gradient-bg text-white px-8 py-4 rounded-full font-bold text-lg shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300 flex items-center space-x-3">
+                            <span>Start Assessment</span>
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+                            </svg>
+                        </button>
+                    </a>
+                    <p class="text-sm text-gray-500 mt-4">⏱️ Takes approximately 5-10 minutes</p>
+                </div>
+                <div class="md:w-1/2 gradient-bg p-8 lg:p-12 flex items-center justify-center">
+                    <div class="text-center text-white">
+                        <div class="text-8xl mb-4">🎯</div>
+                        <h4 class="text-2xl font-bold mb-2">Your Journey Starts Here</h4>
+                        <p class="text-indigo-100">Join us to found your dream career</p>
+                        <div class="mt-8 flex justify-center space-x-8">
+                           
+                              
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Features Grid -->
+        <div class="mb-8">
+            <h3 class="text-2xl font-bold text-gray-800 mb-6">What You'll Get</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Feature 1 -->
+                <div class="bg-white rounded-xl p-6 shadow-lg card-hover">
+                    <div class="feature-icon text-white mb-4">📊</div>
+                    <h4 class="font-bold text-gray-800 mb-2">Skill Analysis</h4>
+                    <p class="text-sm text-gray-600">Comprehensive evaluation of your technical and soft skills</p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="bg-white rounded-xl p-6 shadow-lg card-hover">
+                    <div class="feature-icon text-white mb-4">🎯</div>
+                    <h4 class="font-bold text-gray-800 mb-2">Career Matches</h4>
+                    <p class="text-sm text-gray-600">Top 3 career paths tailored to your profile and goals</p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="bg-white rounded-xl p-6 shadow-lg card-hover">
+                    <div class="feature-icon text-white mb-4">🗺️</div>
+                    <h4 class="font-bold text-gray-800 mb-2">Learning Roadmap</h4>
+                    <p class="text-sm text-gray-600">Step-by-step plan to achieve your career objectives</p>
+                </div>
+
+                <!-- Feature 4 -->
+                <div class="bg-white rounded-xl p-6 shadow-lg card-hover">
+                    <div class="feature-icon text-white mb-4">💡</div>
+                    <h4 class="font-bold text-gray-800 mb-2">Expert Insights</h4>
+                    <p class="text-sm text-gray-600">AI-powered recommendations based on industry trends</p>
+                </div>
+            </div>
+        </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t mt-12 py-6">
+        <div class="max-w-7xl mx-auto px-6 text-center text-gray-600">
+            
+            <p class="text-xs mt-2">© 2025 CareerSphere. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

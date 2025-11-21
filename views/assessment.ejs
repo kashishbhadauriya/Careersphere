@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Career Assessment | careerpathAI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateX(-100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        .section-card {
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        .progress-bar {
+            transition: width 0.3s ease;
+        }
+
+        select, textarea {
+            transition: all 0.3s ease;
+        }
+
+        select:focus, textarea:focus {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .card-hover {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        .emoji-icon {
+            font-size: 2rem;
+            display: inline-block;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .step-indicator {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .step-active {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+
+        .step-inactive {
+            background: #e5e7eb;
+            color: #9ca3af;
+        }
+    </style>
+</head>
+
+<body class="bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 min-h-screen">
+
+    <!-- Header -->
+    <div class="gradient-bg text-white py-8 shadow-lg">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="text-4xl font-bold mb-2">🎯 AI Career Assessment</h1>
+                    <p class="text-indigo-100 text-lg">Discover your perfect tech career path in just 5 minutes</p>
+                </div>
+                <div class="hidden md:block">
+                    <div class="text-right">
+                        <div class="text-3xl font-bold" id="progress-percent">0%</div>
+                        <div class="text-sm text-indigo-100">Complete</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Progress Bar -->
+    <div class="max-w-6xl mx-auto px-6 -mt-3">
+        <div class="bg-white rounded-full h-3 shadow-lg overflow-hidden">
+            <div id="progress-bar" class="progress-bar gradient-bg h-full" style="width: 0%"></div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="max-w-6xl mx-auto px-6 py-10">
+        
+        <form action="/assessment" method="POST" class="space-y-8" id="assessment-form">
+
+            <!-- Section 1: Skills & Technical Knowledge -->
+            <div class="section-card card-hover bg-white rounded-2xl shadow-xl p-8 border-l-4 border-indigo-500">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="step-indicator step-active">1</div>
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-800">Skills & Technical Knowledge</h2>
+                        <p class="text-gray-600">Tell us about your technical expertise</p>
+                    </div>
+                    <span class="emoji-icon ml-auto">💻</span>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <!-- Question 1 -->
+                    <div class="space-y-2">
+                        <label class="block font-semibold text-gray-700">1. Programming skill level?</label>
+                        <select name="q1" required class="w-full p-3 border-2 border-gray-200 rounded-lg focus:border-indigo-500 focus:outline-none bg-gray-50">
+                            <option value="">Choose your level...</option>
+                            <option>Complete Beginner (Never coded)</option>
+                            <option>Beginner (Basic syntax, simple programs)</option>
+                            <option>Intermediate (Can build projects independently)</option>
+                            <option>Advanced (Complex applications, best practices)</option>
+                            <option>Expert (System design, mentoring others)</option>
+                            <option>Professional (5+ years industry experience)</option>
+                        </select>
+                    </div>
+
+                    <!-- Question 2 -->
+                    <div class="space-y-2">
+                        <label class="block font-semibold text-gray-700">2. DSA knowledge strength?</label>
+                        <select name="q2" required class="w-full p-3 border-2 border-gray-200 rounded-lg focus:border-indigo-500 focus:outline-none bg-gray-50">
+                            <option value="">Choose your level...</option>
+                            <option>Not Started (No DSA knowledge)</option>
+                            <option>Basic (Arrays, Strings, Simple Loops)</option>
+                            <option>Intermediate (Trees, Graphs, Recursion)</option>
+                            <option>Advanced (DP, Greedy, Complex Algorithms)</option>
+                            <option>Expert (Can solve Hard problems consistently)</option>
+                            <option>Competitive Programmer (Contest participant)</option>
+                        </select>
+                    </div>
+
+                    <!-- Question 3 -->
+                    <div class="space-y-2">
+                        <label class="block font-semibold text-gray-700">3. Debugging proficiency?</label>
+                        <select name="q3" required class="w-full p-3 border-2 border-gray-200 rounded-lg focus:border-indigo-500 focus:outline-none bg-gray-50">
+                            <option value="">Choose your level...</option>
+                            <option>Weak (Struggle to find bugs)</option>
+                            <option>Below Average (Need help often)</option>
+                            <option>Average (Can debug with time)</option>
+                            <option>Good (Efficient at finding issues)</option>
+                            <option>Expert (Quick identification & fixes)</option>
+                            <option>Master (Can debug any codebase)</option>
+                        </select>
+                    </div>
+
+                    <!-- Question 4 -->
+                    <div class="space-y-2">
+                        <label class="block font-semibold text-gray-700">4. Most comfortable area?</label>
+                        <select name="q4" required class="w-full p-3 border-2 border-gray-200 rounded-lg focus:border-indigo-500 focus:outline-none bg-gray-50">
+                            <option value="">Choose area...</option>
+                            <option>Frontend Web Development</option>
+                            <option>Backend Web Development</option>
+                            <option>Full-Stack Web Development</option>
+                            <option>Mobile App Development (iOS/Android)</option>
+                            <option>AI/Machine Learning</option>
+                            <option>Data Science & Analytics</option>
+                            <option>DevOps & Cloud Infrastructure</option>
+                            <option>Cybersecurity</option>
+                            <option>Game Development</option>
+                            <option>Blockchain/Web3</option>
+                            <option>Desktop Applications</option>
+                            <option>Embedded Systems/IoT</option>
+                            <option>None Yet (Still Exploring)</option>
+                        </select>
+                    </div>
+
+                    <!-- Question 5 -->
+                    <div class="space-y-2">
+                        <label class="block font-semibold text-gray-700">5. Git & GitHub familiarity?</label>
+                        <select name="q5" required class="w-full p-3 border-2 border-gray-200 rounded-lg focus:border-indigo-500 focus:outline-none bg-gray-50">
+                            <option value="">Choose your level...</option>
+                            <option>No Experience (Never used)</option>
+                            <option>Basic (Clone, commit, push)</option>
+                            <option>Intermediate (Branching, merging, PRs)</option>
+                            <option>Comfortable (Resolve conflicts, rebase)</option>
+                            <option>Advanced (Git workflows, best practices)</option>
+                            <option>Expert (Complex operations, Git internals)</option>
+                        </select>
+                    </div>
+
+                    <!-- Question 6 -->
+                    <div class="space-y-2">
+                        <label class="block font-semibold text-gray-700">6. Database comfort level?</label>
+                        <select name="q6" required class="w-full p-3 border-2 border-gray-200 rounded-lg focus:border-indigo-500 focus:outline-none bg-gray-50">
+                            <option value="">Choose your level...</option>
+                            <option>None (No database knowledge)</option>
+                            <option>Basic SQL (SELECT, INSERT queries)</option>
+                            <option>Intermediate SQL (JOINS, subqueries)</option>
+                            <option>Advanced SQL (Optimization, indexing)</option>
+                            <option>SQL + NoSQL (MongoDB, Redis)</option>
+                            <option>Multi-DB Expert (PostgreSQL, MySQL, MongoDB)</option>
+                            <option>Database Architect (Design, scaling)</option>
+                        </select>
+                    </div>
+
+                    <!-- Question 7 -->
+                    <div class="space-y-2">
+                        <label class="block font-semibold text-gray-700">7. Math skills rating?</label>
+                        <select name="q7" required class="w-full p-3 border-2 border-gray-200 rounded-lg focus:border-indigo-500 focus:outline-none bg-gray-50">
+                            <option value="">Choose your level...</option>
+                            <option>Poor (Struggle with basic math)</option>
+                            <option>Below Average (Can do basics only)</option>
+                            <option>Average (Standard arithmetic, algebra)</option>
+                            <option>Good (Calculus, statistics comfortable)</option>
+                            <option>Very Good (Linear algebra, probability)</option>
+                            <option>Excellent (Advanced math, research level)</option>
+                        </select>
+                    </div>
+
+                    <!-- Question 8 -->
+                    <div class="space-y-2">
+                        <label class="block font-semibold text-gray-700">8. Machine Learning experience?</label>
+                        <select name="q8" required class="w-full p-3 border-2 border-gray-200 rounded-lg focus:border-indigo-500 focus:outline-none bg-gray-50">
+                            <option value="">Choose your level...</option>
+                            <option>No Experience (Never touched ML)</option>
+                            <option>Beginner (Know concepts, no projects)</option>
+                            <option>Basic (Built simple models with tutorials)</option>
+                            <option>Intermediate (Can train models independently)</option>
+                            <option>Advanced (Feature engineering, tuning)</option>
+                            <option>Expert (Research, custom architectures)</option>
+                            <option>Professional (ML in production)</option>
+                        </select>
+                    </div>
+
+                    <!-- Question 9 -->
+                    <div class="space-y-2">
+                        <label class="block font-semibold text-gray-700">9. API comfort level?</label>
+                        <select name="q9" required class="w-full p-3 border-2 border-gray-200 rounded-lg focus:border-indigo-500 focus:outline-none bg-gray-50">
+                            <option value="">Choose your level...</option>
+                            <option>No Knowledge (What's an API?)</option>
+                            <option>Basic (Can use public APIs)</option>
+                            <option>Intermediate (Build simple REST APIs)</option>
+                            <option>Comfortable (RESTful best practices)</option>
+                            <option>Advanced (GraphQL, WebSockets, gRPC)</option>
+                            <option>Expert (API design, documentation, versioning)</option>
+                            <option>Architect (Microservices, API gateways)</option>
+                        </select>
+                    </div>
+
+                    <!-- Question 10 -->
+                    <div class="space-y-2">
+                        <label class="block font-semibold text-gray-700">10. Cloud tech experience?</label>
+                        <select name="q10" required class="w-full p-3 border-2 border-gray-200 rounded-lg focus:border-indigo-500 focus:outline-none bg-gray-50">
+                            <option value="">Choose your level...</option>
+                            <option>None (No cloud experience)</option>
+                            <option>Beginner (Deployed simple apps)</option>
+                            <option>Basic (AWS/Azure/GCP basics)</option>
+                            <option>Intermediate (VMs, storage, databases)</option>
+                            <option>Advanced (Docker, Kubernetes)</option>
+                            <option>Expert (CI/CD, infrastructure as code)</option>
+                            <option>Cloud Architect (Multi-cloud, enterprise)</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 2: Interests & Working Preferences -->
+            <div class="section-card card-hover bg-white rounded-2xl shadow-xl p-8 border-l-4 border-purple-500">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="step-indicator step-active">2</div>
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-800">Interests & Working Preferences</h2>
+                        <p class="text-gray-600">Help us understand what drives you</p>
+                    </div>
+                    <span class="emoji-icon ml-auto">🎨</span>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <!-- Question 11 -->
+                    <div class="space-y-2">
+                        <label class="block font-semibold text-gray-700">11. Most interesting work type?</label>
+                        <select name="q11" required class="w-full p-3 border-2 border-gray-200 rounded-lg focus:border-purple-500 focus:outline-none bg-gray-50">
+                            <option value="">Choose one...</option>
+                            <option>Building Web Applications</option>
+                            <option>Mobile App Development</option>
+                            <option>Data Analysis & Visualization</option>
+                            <option>Machine Learning Models</option>
+                            <option>UI/UX Design</option>
+                            <option>Backend & APIs</option>
+                            <option>DevOps & Automation</option>
+                            <option>Research & Experimentation</option>
+                            <option>Problem Solving & Algorithms</option>
+                            <option>Creating Content/Tutorials</option>
+                            <option>System Architecture Design</option>
+                        </select>
+                    </div>
+
+                    <!-- Question 12 -->
+                    <div class="space-y-2">
+                        <label class="block font-semibold text-gray-700">12. What motivates you?</label>
+                        <select name="q12" required class="w-full p-3 border-2 border-gray-200 rounded-lg focus:border-purple-500 focus:outline-none bg-gray-50">
+                            <option value="">Choose one...</option>
+                            <option>High Salary & Financial Security</option>
+                            <option>Learning & Skill Development</option>
+                            <option>Building Impactful Products</option>
+                            <option>Recognition & Status</option>
+                            <option>Growth & Career Advancement</option>
+                            <option>Work-Life Balance & Flexibility</option>
+                            <option>Solving Complex Problems</option>
+                            <option>Creative Expression</option>
+                            <option>Helping Others</option>
+                            <option>Independence & Entrepreneurship</option>
+                        </select>
+                    </div>
+
+                    <!-- Question 13 -->
+                    <div class="space-y-2">
+                        <label class="block font-semibold text-gray-700">13. Preferred work style?</label>
+                        <select name="q13" required class="w-full p-3 border-2 border-gray-200 rounded-lg focus:border-purple-500 focus:outline-none bg-gray-50">
+                            <option value="">Choose one...</option>
+                            <option>Creative & Free-flowing</option>
+                            <option>Logical & Analytical</option>
+                            <option>Organized & Structured</option>
+                            <option>Experimental & Exploratory</option>
+                            <option>Detail-Oriented & Precise</option>
+                            <option>Fast-paced & Dynamic</option>
+                            <option>Methodical & Systematic</option>
+                        </select>
+                    </div>
+
+                    <!-- Question 14 -->
+                    <div class="space-y-2">
+                        <label class="block font-semibold text-gray-700">14. Team preference?</label>
+                        <select name="q14" required class="w-full p-3 border-2 border-gray-200 rounded-lg focus:border-purple-500 focus:outline-none bg-gray-50">
+                            <option value="">Choose one...</option>
+                            <option>Work Alone (Solo projects)</option>
+                            <option>Pair Programming</option>
+                            <option>Small Teams (3-5 people)</option>
+                            <option>Medium Teams (6-15 people)</option>
+                            <option>Large Teams (15+ people)</option>
+                            <option>Cross-functional Teams</option>
+                            <option>Flexible (Depends on project)</option>
+                        </select>
+                    </div>
+
+                    <!-- Question 15 -->
+                    <div class="space-y-2">
+                        <label class="block font-semibold text-gray-700">15. Ideal work environment?</label>
+                        <select name="q15" required class="w-full p-3 border-2 border-gray-200 rounded-lg focus:border-purple-500 focus:outline-none bg-gray-50">
+                            <option value="">Choose one...</option>
+                            <option>Fully Remote</option>
+                            <option>Office-Based</option>
+                            <option>Hybrid (2-3 days office)</option>
+                            <option>Co-working Spaces</option>
+                            <option>Flexible/Negotiable</option>
+                            <option>No Strong Preference</option>
+                        </select>
+                    </div>
+
+                    <!-- Question 16 -->
+                    <div class="space-y-2">
+                        <label class="block font-semibold text-gray-700">16. Enjoy learning new tech?</label>
+                        <select name="q16" required class="w-full p-3 border-2 border-gray-200 rounded-lg focus:border-purple-500 focus:outline-none bg-gray-50">
+                            <option value="">Choose one...</option>
+                            <option>Love it! (Always exploring)</option>
+                            <option>Yes (Regularly learn new things)</option>
+                            <option>Sometimes (When interesting)</option>
+                            <option>Only when required</option>
+                            <option>Prefer mastering current skills</option>
+                            <option>No (Find it overwhelming)</option>
+                        </select>
+                    </div>
+
+                    <!-- Question 17 -->
+                    <div class="space-y-2">
+                        <label class="block font-semibold text-gray-700">17. Projects that excite you?</label>
+                        <select name="q17" required class="w-full p-3 border-2 border-gray-200 rounded-lg focus:border-purple-500 focus:outline-none bg-gray-50">
+                            <option value="">Choose one...</option>
+                            <option>E-commerce & Web Apps</option>
+                            <option>Social Media Platforms</option>
+                            <option>Mobile Apps (iOS/Android)</option>
+                            <option>AI/ML Applications</option>
+                            <option>Data Dashboards & Analytics</option>
+                            <option>Game Development</option>
+                            <option>Financial/Trading Systems</option>
+                            <option>Healthcare Tech</option>
+                            <option>Educational Platforms</option>
+                            <option>Automation Tools</option>
+                            <option>IoT & Hardware Projects</option>
+                        </select>
+                    </div>
+
+                    <!-- Question 18 -->
+                    <div class="space-y-2">
+                        <label class="block font-semibold text-gray-700">18. How do you handle challenges?</label>
+                        <select name="q18" required class="w-full p-3 border-2 border-gray-200 rounded-lg focus:border-purple-500 focus:outline-none bg-gray-50">
+                            <option value="">Choose one...</option>
+                            <option>Avoid them (Prefer easier tasks)</option>
+                            <option>Hesitant (Need encouragement)</option>
+                            <option>Try slowly (Careful approach)</option>
+                            <option>Take initiative (Face them directly)</option>
+                            <option>Push fully (Thrive on challenges)</option>
+                            <option>Seek challenges actively</option>
+                        </select>
+                    </div>
+
+                    <!-- Question 19 -->
+                    <div class="space-y-2">
+                        <label class="block font-semibold text-gray-700">19. Stress management level?</label>
+                        <select name="q19" required class="w-full p-3 border-2 border-gray-200 rounded-lg focus:border-purple-500 focus:outline-none bg-gray-50">
+                            <option value="">Choose your level...</option>
+                            <option>Poor (Easily overwhelmed)</option>
+                            <option>Below Average (Struggle under pressure)</option>
+                            <option>Average (Can handle normal stress)</option>
+                            <option>Good (Stay calm in most situations)</option>
+                            <option>Very Good (Thrive under pressure)</option>
+                            <option>Excellent (Stress makes me focused)</option>
+                        </select>
+                    </div>
+
+                    <!-- Question 20 -->
+                    <div class="space-y-2">
+                        <label class="block font-semibold text-gray-700">20. Creativity level?</label>
+                        <select name="q20" required class="w-full p-3 border-2 border-gray-200 rounded-lg focus:border-purple-500 focus:outline-none bg-gray-50">
+                            <option value="">Choose your level...</option>
+                            <option>Low (Prefer following guidelines)</option>
+                            <option>Below Average (Some creative thinking)</option>
+                            <option>Medium (Balanced creativity)</option>
+                            <option>High (Often think outside the box)</option>
+                            <option>Very High (Innovative ideas constantly)</option>
+                            <option>Extremely Creative (Artist/Designer mindset)</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 3: Career Goals & Intentions -->
+            <div class="section-card card-hover bg-white rounded-2xl shadow-xl p-8 border-l-4 border-pink-500">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="step-indicator step-active">3</div>
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-800">Career Goals & Intentions</h2>
+                        <p class="text-gray-600">Share your aspirations and commitments</p>
+                    </div>
+                    <span class="emoji-icon ml-auto">🚀</span>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <!-- Questions 21-30 -->
+                    <div class="space-y-2">
+                        <label class="block font-semibold text-gray-700">21. Your dream role?</label>
+                        <select name="q21" required class="w-full p-3 border-2 border-gray-200 rounded-lg focus:border-pink-500 focus:outline-none bg-gray-50">
+                            <option value="">Choose one...</option>
+                            <option>Software Developer</option>
+                            <option>ML Engineer</option>
+                            <option>Data Scientist</option>
+                            <option>Product Manager</option>
+                            <option>Cybersecurity</option>
+                        </select>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="block font-semibold text-gray-700">22. In 3 years, you'll be?</label>
+                        <select name="q22" required class="w-full p-3 border-2 border-gray-200 rounded-lg focus:border-pink-500 focus:outline-none bg-gray-50">
+                            <option value="">Choose one...</option>
+                            <option>Big Tech Job</option>
+                            <option>Freelancing</option>
+                            <option>Running a Startup</option>
+                            <option>Still Exploring</option>
+                        </select>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="block font-semibold text-gray-700">23. Weekly time commitment?</label>
+                        <select name="q23" required class="w-full p-3 border-2 border-gray-200 rounded-lg focus:border-pink-500 focus:outline-none bg-gray-50">
+                            <option value="">Choose one...</option>
+                            <option>&lt; 5 hrs</option>
+                            <option>5–10 hrs</option>
+                            <option>10–20 hrs</option>
+                            <option>20+ hrs</option>
+                        </select>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="block font-semibold text-gray-700">24. Roadmap preference?</label>
+                        <select name="q24" required class="w-full p-3 border-2 border-gray-200 rounded-lg focus:border-pink-500 focus:outline-none bg-gray-50">
+                            <option value="">Choose one...</option>
+                            <option>Structured</option>
+                            <option>Flexible</option>
+                            <option>Both</option>
+                        </select>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="block font-semibold text-gray-700">25. Tech career confidence?</label>
+                        <select name="q25" required class="w-full p-3 border-2 border-gray-200 rounded-lg focus:border-pink-500 focus:outline-none bg-gray-50">
+                            <option value="">Choose your level...</option>
+                            <option>Very Low</option>
+                            <option>Low</option>
+                            <option>Good</option>
+                            <option>Very High</option>
+                        </select>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="block font-semibold text-gray-700">26. Best learning mode?</label>
+                        <select name="q26" required class="w-full p-3 border-2 border-gray-200 rounded-lg focus:border-pink-500 focus:outline-none bg-gray-50">
+                            <option value="">Choose one...</option>
+                            <option>Videos</option>
+                            <option>Books</option>
+                            <option>Projects</option>
+                            <option>Interactive Courses</option>
+                        </select>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="block font-semibold text-gray-700">27. Competitive programming?</label>
+                        <select name="q27" required class="w-full p-3 border-2 border-gray-200 rounded-lg focus:border-pink-500 focus:outline-none bg-gray-50">
+                            <option value="">Choose one...</option>
+                            <option>No</option>
+                            <option>Sometimes</option>
+                            <option>Yes</option>
+                            <option>Love it</option>
+                        </select>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="block font-semibold text-gray-700">28. Speaking to clients?</label>
+                        <select name="q28" required class="w-full p-3 border-2 border-gray-200 rounded-lg focus:border-pink-500 focus:outline-none bg-gray-50">
+                            <option value="">Choose one...</option>
+                            <option>No</option>
+                            <option>Maybe</option>
+                            <option>Comfortable</option>
+                            <option>Very Comfortable</option>
+                        </select>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="block font-semibold text-gray-700">29. Communication skills?</label>
+                        <select name="q29" required class="w-full p-3 border-2 border-gray-200 rounded-lg focus:border-pink-500 focus:outline-none bg-gray-50">
+                            <option value="">Choose your level...</option>
+                            <option>Poor</option>
+                            <option>Average</option>
+                            <option>Good</option>
+                            <option>Excellent</option>
+                        </select>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="block font-semibold text-gray-700">30. Learning consistency?</label>
+                        <select name="q30" required class="w-full p-3 border-2 border-gray-200 rounded-lg focus:border-pink-500 focus:outline-none bg-gray-50">
+                            <option value="">Choose one...</option>
+                            <option>No</option>
+                            <option>Sometimes</option>
+                            <option>Yes</option>
+                            <option>Highly Consistent</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 4: Personal Insights -->
+            <div class="section-card card-hover bg-white rounded-2xl shadow-xl p-8 border-l-4 border-green-500">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="step-indicator step-active">4</div>
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-800">Write About Yourself</h2>
+                        <p class="text-gray-600">Share your unique perspective</p>
+                    </div>
+                    <span class="emoji-icon ml-auto">✍️</span>
+                </div>
+
+                <div class="space-y-6">
+                    <div>
+                        <label class="block font-semibold text-gray-700 mb-2">Describe the work you enjoy the most:</label>
+                        <textarea name="pov1" rows="3" required class="w-full p-4 border-2 border-gray-200 rounded-lg focus:border-green-500 focus:outline-none bg-gray-50" placeholder="Tell us what makes you excited about work..."></textarea>
+                    </div>
+
+                    <div>
+                        <label class="block font-semibold text-gray-700 mb-2">What motivates you?</label>
+                        <textarea name="pov2" rows="3" required class="w-full p-4 border-2 border-gray-200 rounded-lg focus:border-green-500 focus:outline-none bg-gray-50" placeholder="What drives you forward..."></textarea>
+                    </div>
+
+                    <div>
+                        <label class="block font-semibold text-gray-700 mb-2">Your biggest strengths:</label>
+                        <textarea name="pov3" rows="3" required class="w-full p-4 border-2 border-gray-200 rounded-lg focus:border-green-500 focus:outline-none bg-gray-50" placeholder="What are you naturally good at..."></textarea>
+                    </div>
+
+                    <div>
+                        <label class="block font-semibold text-gray-700 mb-2">Your biggest learning challenges:</label>
+                        <textarea name="pov4" rows="3" required class="w-full p-4 border-2 border-gray-200 rounded-lg focus:border-green-500 focus:outline-none bg-gray-50" placeholder="What do you find difficult..."></textarea>
+                    </div>
+
+                    <div>
+                        <label class="block font-semibold text-gray-700 mb-2">Describe your dream career:</label>
+                        <textarea name="pov5" rows="4" required class="w-full p-4 border-2 border-gray-200 rounded-lg focus:border-green-500 focus:outline-none bg-gray-50" placeholder="Paint a picture of your ideal future..."></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="flex justify-center">
+                <button type="submit" class="gradient-bg text-white px-12 py-4 rounded-full text-lg font-bold shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300 flex items-center gap-3">
+                    <span>🎯</span>
+                    <span>Get My Career Roadmap</span>
+                    <span>→</span>
+                </button>
+            </div>
+
+        </form>
+
+    </div>
+
+    <script>
+        // Progress tracking
+        const form = document.getElementById('assessment-form');
+        const progressBar = document.getElementById('progress-bar');
+        const progressPercent = document.getElementById('progress-percent');
+        const totalFields = form.querySelectorAll('select, textarea').length;
+
+        function updateProgress() {
+            const filledFields = Array.from(form.querySelectorAll('select, textarea'))
+                .filter(field => field.value !== '').length;
+            const percentage = Math.round((filledFields / totalFields) * 100);
+            
+            progressBar.style.width = percentage + '%';
+            progressPercent.textContent = percentage + '%';
+        }
+
+        // Add event listeners to all inputs
+        form.querySelectorAll('select, textarea').forEach(field => {
+            field.addEventListener('change', updateProgress);
+            field.addEventListener('input', updateProgress);
+        });
+
+        // Smooth scroll to next section after answering
+        form.querySelectorAll('select').forEach(select => {
+            select.addEventListener('change', function() {
+                // Optional: Auto-scroll to next unanswered question
+                const unanswered = Array.from(form.querySelectorAll('select, textarea'))
+                    .find(field => field.value === '');
+                if (unanswered && this.value !== '') {
+                    setTimeout(() => {
+                        unanswered.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'center'
+                        });
+                    }, 300);
+                }
+            });
+        });
+    </script>
+
+    
